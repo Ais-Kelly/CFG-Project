@@ -110,6 +110,8 @@ let questions = [
     }
 ]
 
+let maxQuestions = 11
+
 startGame = () => {
     questionCounter = 0
     availableQuestions = [...questions]
@@ -118,6 +120,44 @@ startGame = () => {
 
 getNewQuestion = () => {
     if(availableQuestions.length = 0) {
-        localStorage.setItem('')
+        return window.location.assign('/end.html')
     }
+
+    questionCounter++
+    progressText.innerText = `Question ${questionCounter} of ${maxQuestions}`
+    progressBarFull.style.width = `${(questionCounter/maxQuestions) * 100}%`
+
+    const questionsIndex = questionCounter
+    currentQuestion = availableQuestions[questionsIndex]
+    question.innerText = currentQuestion.question
+
+    choices.forEach(choice => {
+        const number = choice.dataset['number']
+        choice.innerText = currentQuestion['choice + number']
+    })
+
+    availableQuestions.splice(questionsIndex, 1)
+
+    acceptingAnswers = true
 }
+
+choices.forEach(choice => {
+    choice.addEventListener('click', e => {
+        if(!acceptingAnswers) return
+
+        acceptingAnswers = false
+        const selectedChoice = e.target
+        const selectedAnswer = selectedChoice.dataset['number']
+
+        let classToApply = selectedAnswer == currentQuestion.answer ? 'selected' : 'unselected'
+
+        selectedChoice.parentElement.classList.add(classToApply)
+
+        setTimeout(() => {
+            selectedChoice.parentElement.classList.remove(classToApply)
+            getNewQuestion()
+
+        }, 1000)
+    })
+})
+

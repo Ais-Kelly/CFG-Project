@@ -34,6 +34,10 @@ body {
     background: linear-gradient(32deg, rgba(214,236,239) 0%, rgb(171,171,171)100%);
 }
 
+.unselected {
+    background: rgb(18,93,255);
+}
+
 /* Heads up display*/
 #hud {
     display: flex;
