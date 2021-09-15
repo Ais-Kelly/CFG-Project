@@ -1,5 +1,7 @@
 body { 
-    color: #fff
+    color: #fff;
+    margin: 0 auto;
+    padding: 0 auto;
 }
 
 .choice-container {
@@ -9,8 +11,13 @@ body {
     border-radius: 4px;
     background: rgb(18,93,255);
     font-size: 1.5rem;
+    height: 4rem;
     min-width: 80rem;
-    height: 5rem;
+    line-height: 0;
+}
+
+#question {
+    font-size: 2.5rem;
 }
 
 .choice-container:hover {
@@ -58,7 +65,8 @@ body {
     width: 20rem;
     height: 3rem;
     border: 0.2rem solid green;
-    margin-top: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 4rem;
     border-radius: 50px;
     overflow: hidden;
 }
@@ -71,6 +79,6 @@ body {
 
 @media screen and (max-width: 768px) {
     .choice-container {
-        min-width: 40rem;
+        min-width: 30rem;
     }
 }

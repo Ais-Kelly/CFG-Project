@@ -120,12 +120,14 @@ startGame = () => {
 
 getNewQuestion = () => {
     if(availableQuestions.length == 0) {
-        return window.location.assign('/end.html')
+        quizAnswer
+        localStorage.setItem("{}")
+        return window.location.assign('./pages/end.html')
     }
-    progressText.innerText = `Question ${questionCounter} of ${maxQuestions}`
+
+    progressText.innerText = `Question ${questionCounter+1} of ${maxQuestions}`
     progressBarFull.style.width = `${(questionCounter/maxQuestions) * 100}%`
     
-
     const questionsIndex = questionCounter
     currentQuestion = availableQuestions[questionsIndex]
     question.innerText = currentQuestion.question
@@ -152,6 +154,7 @@ choices.forEach(choice => {
 
         setTimeout(() => {
             getNewQuestion()
+            questionCounter++
 
         }, 1000)
     })
