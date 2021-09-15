@@ -119,21 +119,20 @@ startGame = () => {
 }
 
 getNewQuestion = () => {
-    if(availableQuestions.length = 0) {
+    if(availableQuestions.length == 0) {
         return window.location.assign('/end.html')
     }
-
-    questionCounter++
     progressText.innerText = `Question ${questionCounter} of ${maxQuestions}`
     progressBarFull.style.width = `${(questionCounter/maxQuestions) * 100}%`
+    
 
     const questionsIndex = questionCounter
     currentQuestion = availableQuestions[questionsIndex]
     question.innerText = currentQuestion.question
 
     choices.forEach(choice => {
-        const number = choice.dataset['number']
-        choice.innerText = currentQuestion['choice + number']
+        var number = choice.dataset['number']
+        choice.innerText = currentQuestion[`choice${number}`]
     })
 
     availableQuestions.splice(questionsIndex, 1)
@@ -149,15 +148,13 @@ choices.forEach(choice => {
         const selectedChoice = e.target
         const selectedAnswer = selectedChoice.dataset['number']
 
-        let classToApply = selectedAnswer == currentQuestion.answer ? 'selected' : 'unselected'
-
-        selectedChoice.parentElement.classList.add(classToApply)
+        selectedChoice.parentElement.classList.add(choice.dataset['number'])
 
         setTimeout(() => {
-            selectedChoice.parentElement.classList.remove(classToApply)
             getNewQuestion()
 
         }, 1000)
     })
 })
 
+startGame()
