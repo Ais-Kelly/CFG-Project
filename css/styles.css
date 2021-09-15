@@ -10,6 +10,15 @@ body{
     font-family: 'Urbanist', sans-serif;
 }
 
+.carousel-caption {
+    bottom 150px
+}
+
+#heading {
+    font-size: 6rem;
+    padding-top: 50%;
+}
+
 h1 {
     font-size: 5rem;
     color: #fff;
@@ -93,3 +102,9 @@ h2 {
     font-size: 1.7rem;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .carousel-control{
+      height:200px;
+    }
+ }
