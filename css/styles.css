@@ -82,3 +82,18 @@ h2 {
     box-shadow: none;
     transform: none;
 }
+
+#text {
+    font-size: 3.9rem;
+    color: white;
+}
+
+#result {
+    font-size: 5rem;
+    color: white;
+}
+
+#description {
+    font-size: 1.7rem;
+    color: white;
+}

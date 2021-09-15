@@ -7,6 +7,7 @@ let currentQuestion = {}
 let acceptingAnswers = true
 let questionCounter = 0
 let availableQuestions = []
+let results = []
 
 let questions = [
     {
@@ -120,16 +121,17 @@ startGame = () => {
 
 getNewQuestion = () => {
     if(availableQuestions.length == 0) {
-        quizAnswer
-        localStorage.setItem("{}")
-        return window.location.assign('./pages/end.html')
+        aestheticObj = pickAesthetic() 
+        localStorage.setItem('result', aestheticObj.name)
+        localStorage.setItem('description', aestheticObj.desc)
+        return window.location.assign('../pages/end.html')
     }
 
-    progressText.innerText = `Question ${questionCounter+1} of ${maxQuestions}`
+    questionCounter++
+    progressText.innerText = `Question ${questionCounter} of ${maxQuestions}`
     progressBarFull.style.width = `${(questionCounter/maxQuestions) * 100}%`
     
-    const questionsIndex = questionCounter
-    currentQuestion = availableQuestions[questionsIndex]
+    currentQuestion = availableQuestions[0]
     question.innerText = currentQuestion.question
 
     choices.forEach(choice => {
@@ -137,9 +139,75 @@ getNewQuestion = () => {
         choice.innerText = currentQuestion[`choice${number}`]
     })
 
-    availableQuestions.splice(questionsIndex, 1)
+    availableQuestions.splice(0, 1)
 
     acceptingAnswers = true
+}
+
+pickAesthetic = () => {
+    da = alt = indie = cc = rc = sc = 0
+    
+    resultList = [...results]
+
+    resultList.forEach(answer => {
+        switch(answer) {
+            case '1':
+                da++
+                break
+            case '2':
+                alt++
+                break
+            case '3':
+                indie++
+                break
+            case '4':
+                cc++
+                break
+            case '5':
+                rc++
+                break
+            case '6':
+                sc++
+                break
+
+        }
+    })
+
+    quizResult = {
+        name: 'Dark Academia',
+        num: da,
+        desc: "You're someone with an unquenchable thirst for knowledge. Sometimes that means staying up reading until 2 in the morning because you simply must know what happens, and other times it means binge-watching true crime shows and trying to solve the cases yourself. You have a taste for the classics and live your life like you're the protagonist of a coming-of-age movie. You have a bright mind and an even brighter future ahead of you!"
+    }
+
+    if (alt > quizResult.num) {
+        quizResult.name = 'Alternative'
+        quizResult.num = alt
+        quizResult.desc = "You're someone who positively refuses to lead a boring life. You definitely play by your own rules and hate nothing more than being told what to do. When you get into something — like fandoms, games, or even hobbies — you get really into them and practically become an expert. You have a bold personality and a dark, ironic sense of humor."
+
+    }
+    else if (alt > quizResult.num) {
+        quizResult.name = 'Indiecore'
+        quizResult.num = indie
+        quizResult.desc = "You're super chill and laid-back. You're an artsy person whose head is almost always in the clouds. You hate the dull monotony of routines and instead fill your life with great books, movies, and music to escape it. You have a naturally adventurous spirit and want nothing more than to travel the world and experience all it has to offer."
+    }
+    else if (alt > quizResult.num) {
+        quizResult.name = 'Cottagecore'
+        quizResult.num = cc
+        quizResult.desc = "You're a nature lover with a taste for the simple things in life. You'd pick a calm, quaint life somewhere with lots of trees and gorgeous flowers over living in a big city any day. You're a naturally nurturing person with a big heart and a bright spirit."
+    }
+    else if (alt > quizResult.num) {
+        quizResult.name = 'Retrocore'
+        quizResult.num = rc
+        quizResult.desc = "You're someone who has a passion for the past. Maybe you think '90s movies are way better than anything out nowadays, or perhaps your favorite snacks today are the ones you grew up eating as a kid. You have a pure, youthful energy and love to share your passion with the people around you. Some people may claim you refuse to grow up, but you know that really, you're never too old to have fun!"
+    }
+    else if (alt > quizResult.num) {
+        quizResult.name = 'Softcore'
+        quizResult.num = sc
+        quizResult.desc = "You're a total sweetheart! You're a genuine, down-to-Earth person. You're always the first one to offer your friends a helping hand or a shoulder to cry on. Some people might call you sensitive, but you've just got a massive heart!"
+    }
+
+    return quizResult
+
 }
 
 choices.forEach(choice => {
@@ -154,9 +222,8 @@ choices.forEach(choice => {
 
         setTimeout(() => {
             getNewQuestion()
-            questionCounter++
 
-        }, 1000)
+        }, 100)
     })
 })
 
